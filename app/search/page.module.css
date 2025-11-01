@@ -1,0 +1,27 @@
+.container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.articleCard {
+  margin-bottom: 20px;
+  border: 1px solid #eee;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.articleCard h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.articleCard p {
+  margin-bottom: 5px;
+  line-height: 1.5;
+}
+
+.articleCard strong {
+  color: #555;
+}
