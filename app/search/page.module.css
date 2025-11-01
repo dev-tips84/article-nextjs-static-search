@@ -1,14 +1,22 @@
 .container {
   padding: 20px;
-  max-width: 800px;
+  max-width: 1200px; /* Increased max-width for 3 columns */
   margin: 0 auto;
 }
 
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* 3 columns, responsive */
+  gap: 20px; /* Space between grid items */
+}
+
 .articleCard {
-  margin-bottom: 20px;
   border: 1px solid #eee;
   padding: 15px;
   border-radius: 8px;
+  display: flex; /* Use flex for internal layout of card */
+  flex-direction: column;
+  justify-content: space-between; /* Distribute content vertically */
 }
 
 .articleCard h2 {
@@ -24,4 +32,26 @@
 
 .articleCard strong {
   color: #555;
+}
+
+.categoryPill {
+  display: inline-block;
+  background-color: #e0f2f7; /* Light blue */
+  color: #0288d1; /* Darker blue */
+  padding: 4px 8px;
+  border-radius: 16px;
+  font-size: 0.8em;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.tagPill {
+  display: inline-block;
+  background-color: #e8f5e9; /* Light green */
+  color: #2e7d32; /* Darker green */
+  padding: 4px 8px;
+  border-radius: 16px;
+  font-size: 0.8em;
+  margin-right: 5px;
+  margin-bottom: 5px;
 }
