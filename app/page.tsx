@@ -1,5 +1,10 @@
+import styles from './page.module.css';
+
 export default function Home() {
   return (
-    <h1>hello world</h1>
+    <div className={styles.container}>
+      <input type="text" placeholder="Search..." className={styles.searchInput} />
+      <button className={styles.searchButton}>Search</button>
+    </div>
   );
 }
