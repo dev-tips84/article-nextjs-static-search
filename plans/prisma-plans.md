@@ -37,7 +37,7 @@ generator client {
 - `articles`: Articleモデルとの多対多リレーション
 
 ## 3. マイグレーション
-- [ ] `prisma migrate dev` コマンドの実行によるデータベーススキーマの作成
+- [x] `prisma migrate dev` コマンドの実行によるデータベーススキーマの作成
 
 ## 4. シードスクリプトの作成
 `app/search/articles.json`のデータをデータベースに投入するためのシードスクリプトを作成します。
