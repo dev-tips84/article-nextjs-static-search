@@ -42,12 +42,43 @@ generator client {
 ## 4. シードスクリプトの作成
 `app/search/articles.json`のデータをデータベースに投入するためのシードスクリプトを作成します。
 - [ ] Node.jsでTypeScriptを実行するため`tsx`の導入
-- [ ] https://tsx.is/typescript#tsconfig-json にしたがって
+- [ ] https://tsx.is/typescript#tsconfig-json にしたがってtsconfig.jsonを更新。以下の設定で既存のtsconfig.jsonにて未定義のものはコメントとともに追加、すでに設定済みのものは既存のtsconfig.jsonを優先
+```
+{
+	"compilerOptions": {
+
+		// Treat files as modules even if it doesn't use import/export
+		"moduleDetection": "force",
+
+		// Ignore module structure
+		"module": "Preserve",
+
+		// Allow JSON modules to be imported
+		"resolveJsonModule": true,
+
+		// Allow JS files to be imported from TS and vice versa
+		"allowJs": true,
+
+		// Use correct ESM import behavior
+		"esModuleInterop": true,
+
+		// Disallow features that require cross-file awareness
+		"isolatedModules": true,
+	},
+}
+```
+- [ ] @prisma/adapter-better-sqlite3のインストール
 - [ ] `prisma/seed/seed.ts` ファイルの作成
 - [ ] `articles.json` を`prisma/seed`ディレクトリに移動
 - [ ] `articles.json` を読み込む処理の実装
+- [ ] `categories.json` を`prisma/seed`ディレクトリに作成、`articles.json`から全カテゴリを抽出し、`schema.prisma`のモデルに従ってJSON配列を作成。
 - [ ] 読み込んだデータを`Article`, `Category`, `Tag`モデルに変換し、データベースに保存する処理の実装
-    - 既存のカテゴリやタグがあれば再利用し、なければ新規作成するロジック
+    - Zod schemaをz.object()とTypeScript satisfiesを使って作成。Prismaの作成したCategory用のInputに合致しているか確認するためのSchema。
+    - Zod schemaをz.object()とTypeScript satisfiesを使って作成。Prismaの作成したArticle用のInputに合致しているか確認するためのSchema。
+    - `categories.json`を読み込み、上記のSchemaに合致しているかチェック、違反していればErrorをthrowして終了
+	- `categories.json`が上記のSchemaにすべて合致していれば、prisma.category.upsertでDBにないものだけ挿入。upsertのwhereはnameの一致を確認。
+	- `articles.json`を読み込み、上記のSchemaに合致しているかチェック、違反していればErrorをthrowして終了
+	- `articles.json`が上記のSchemaにすべて合致していれば、prisma.article.upsertでDBにないものだけ挿入。upsertのwhereはidの一致を確認。tagsはconnectOrCreateを使用
 
 ## 5. Prismaクライアントの利用
 - [ ] アプリケーションコードからのPrismaクライアントのインポートと利用方法の検討
