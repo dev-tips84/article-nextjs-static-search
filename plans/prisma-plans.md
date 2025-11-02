@@ -68,10 +68,11 @@ generator client {
 }
 ```
 - [ ] @prisma/adapter-better-sqlite3のインストール
-- [ ] `prisma/seed/seed.ts` ファイルの作成
-- [ ] `articles.json` を`prisma/seed`ディレクトリに移動
-- [ ] `articles.json` を読み込む処理の実装
+- [x] `prisma/seed/seed.ts` ファイルの作成
+- [x] `articles.json` を`prisma/seed`ディレクトリに移動
 - [ ] `categories.json` を`prisma/seed`ディレクトリに作成、`articles.json`から全カテゴリを抽出し、`schema.prisma`のモデルに従ってJSON配列を作成。
+- [ ] `categories.json` を読み込む処理の実装、読み込んだらprintする。まだPrismaの事は考えない。
+- [ ] `articles.json` を読み込む処理の実装、読み込んだらprintする。まだPrismaの事は考えない。
 - [ ] 読み込んだデータを`Article`, `Category`, `Tag`モデルに変換し、データベースに保存する処理の実装
     - Zod schemaをz.object()とTypeScript satisfiesを使って作成。Prismaの作成したCategory用のInputに合致しているか確認するためのSchema。
     - Zod schemaをz.object()とTypeScript satisfiesを使って作成。Prismaの作成したArticle用のInputに合致しているか確認するためのSchema。
