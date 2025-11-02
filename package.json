@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "seed": "tsx --env-file .env prisma/seed/seed.ts"
   },
   "dependencies": {
     "dotenv": "^17.2.3",
