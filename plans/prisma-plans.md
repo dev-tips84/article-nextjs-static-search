@@ -75,7 +75,7 @@ generator client {
     - Zod schemaをz.object()とTypeScript satisfiesを使って作成。Prismaの作成したCategory用のInputに合致しているか確認
     - Schemaに合致していないものが発見されたらErrorをthrowして終了
     - 読み込んだらprintする。まだPrismaの事は考えない。
-- [ ] `articles.json` を読み込む処理の実装、読み込んだらprintする。まだPrismaの事は考えない。
+- [x] `articles.json` を読み込む処理の実装、読み込んだらprintする。まだPrismaの事は考えない。
     - Zod schemaをz.object()とTypeScript satisfiesを使って作成。Prismaの作成したArticle用のInputに合致しているか確認するためのSchema。
     - Schemaに合致していないものが発見されたらErrorをthrowして終了
 - [ ] Categoryの更新処理を実装

@@ -15,6 +15,22 @@ async function main() {
 
   const validatedCategories = z.array(CategorySchema).parse(categoriesData);
   console.log("Validated Categories:", validatedCategories);
+
+  // 2. Load and validate articles.json
+  const articlesPath = join(__dirname, "articles.json");
+  const articlesData = JSON.parse(readFileSync(articlesPath, "utf-8"));
+
+  const ArticleSchema = z.object({
+    title: z.string(),
+    article: z.string(),
+    category: z.string(),
+    date: z.string(),
+    views: z.number(),
+    tags: z.array(z.string()),
+  });
+
+  const validatedArticles = z.array(ArticleSchema).parse(articlesData);
+  console.log("Validated Articles:", validatedArticles);
 }
 
 main()
