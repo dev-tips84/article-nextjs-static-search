@@ -80,10 +80,10 @@ generator client {
     - Schemaに合致していないものが発見されたらErrorをthrowして終了
 - [x] Categoryの更新処理を実装
 	- `categories.json`から読み込んだデータがすべてもれなく上記のZod Schemaに合致致していれば、prisma.category.upsertでDBにないものだけ挿入。upsertのwhereはnameの一致を確認.
-- [ ] Articleの更新処理を実装
+- [x] Articleの更新処理を実装
 	- `categories.json`から読み込んだデータがすべてもれなく上記のZod Schemaに合致致していれば、prisma.article.upsertでDBにないものだけ挿入。upsertのwhereはidの一致を確認。tagsはconnectOrCreateを使用
 - [x] `seed.ts`を実行する`tsx --env-file .env ...`の形式のコマンドを`package.json` > `scripts`に追加
-- [ ] 上記コマンドで`seed.ts`を実行
+- [x] 上記コマンドで`seed.ts`を実行
     - エラーがあればエラーメッセージを分析して原因を報告。まだ解決はしない、ソースコードを編集しない。
     - エラーがなければ、sqlite3 CLIで結果を確認するための一連のコマンドを提示、実行はしない。
 

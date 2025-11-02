@@ -27,10 +27,10 @@ async function processCategories() {
 
   // Upsert categories
   for (const category of validatedCategories) {
-    await prisma.category.upsert({
-      where: { name: category.name },
-      update: {},
-      create: { name: category.name },
+    await prisma.category.create({
+      data: {
+        name: category.name,
+      },
     });
   }
 
@@ -52,7 +52,33 @@ async function processArticles() {
   });
 
   const validatedArticles = z.array(ArticleSchema).parse(articlesData);
-  console.log("Validated Articles:", validatedArticles);
+
+  for (const article of validatedArticles) {
+    console.log("inserting", article);
+
+    await prisma.article.create({
+      data: {
+        title: article.title,
+        article: article.article,
+        date: new Date(article.date),
+        views: article.views,
+        category: {
+          connect: { name: article.category },
+        },
+        tags: {
+          connectOrCreate: article.tags.map((tag) => ({
+            where: {
+              name: tag,
+            },
+            create: {
+              name: tag,
+            },
+          })),
+        },
+      },
+    });
+  }
+  console.log("Articles seeded.");
 }
 
 async function main() {
