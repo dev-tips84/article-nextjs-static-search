@@ -1,8 +1,8 @@
 # Prisma導入計画
 
 ## 1. Prisma初期設定
-- [ ] Prisma CLIのインストール
-- [ ] `prisma init` コマンドの実行
+- [x] Prisma CLIのインストール
+- [x] `prisma init` コマンドの実行
   - schema.prismaの設定はhttps://www.prisma.io/docs/orm/prisma-client/setup-and-configuration/no-rust-engine に従ってNo Rust engineを使う
 ```
 generator client {
@@ -11,11 +11,11 @@ generator client {
   engineType      = "client" // enable Prisma ORM without Rust
 }
 ```
-- [ ] データベースプロバイダの設定（SQLite）
-- [ ] `.env` ファイルでのデータベース接続URLの設定、.gitignoreに.envを追加
+- [x] データベースプロバイダの設定（SQLite）
+- [x] `.env` ファイルでのデータベース接続URLの設定、.gitignoreに.envを追加
 
 ## 2. スキーマ定義（`schema.prisma`）
-`app/search/articles.json`のデータ構造に基づき、以下のモデルを定義します。
+- [x] `app/search/articles.json`のデータ構造に基づき、以下のモデルを定義します。
 
 ### Articleモデル
 - `id`: Int (Primary Key, Auto-increment)
