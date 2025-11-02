@@ -71,15 +71,21 @@ generator client {
 - [x] `prisma/seed/seed.ts` ファイルの作成
 - [x] `articles.json` を`prisma/seed`ディレクトリに移動
 - [ ] `categories.json` を`prisma/seed`ディレクトリに作成、`articles.json`から全カテゴリを抽出し、`schema.prisma`のモデルに従ってJSON配列を作成。
-- [ ] `categories.json` を読み込む処理の実装、読み込んだらprintする。まだPrismaの事は考えない。
+- [ ] `categories.json` を読み込む処理の実装、
+    - Zod schemaをz.object()とTypeScript satisfiesを使って作成。Prismaの作成したCategory用のInputに合致しているか確認
+    - Schemaに合致していないものが発見されたらErrorをthrowして終了
+    - 読み込んだらprintする。まだPrismaの事は考えない。
 - [ ] `articles.json` を読み込む処理の実装、読み込んだらprintする。まだPrismaの事は考えない。
-- [ ] 読み込んだデータを`Article`, `Category`, `Tag`モデルに変換し、データベースに保存する処理の実装
-    - Zod schemaをz.object()とTypeScript satisfiesを使って作成。Prismaの作成したCategory用のInputに合致しているか確認するためのSchema。
     - Zod schemaをz.object()とTypeScript satisfiesを使って作成。Prismaの作成したArticle用のInputに合致しているか確認するためのSchema。
-    - `categories.json`を読み込み、上記のSchemaに合致しているかチェック、違反していればErrorをthrowして終了
-	- `categories.json`が上記のSchemaにすべて合致していれば、prisma.category.upsertでDBにないものだけ挿入。upsertのwhereはnameの一致を確認。
-	- `articles.json`を読み込み、上記のSchemaに合致しているかチェック、違反していればErrorをthrowして終了
-	- `articles.json`が上記のSchemaにすべて合致していれば、prisma.article.upsertでDBにないものだけ挿入。upsertのwhereはidの一致を確認。tagsはconnectOrCreateを使用
+    - Schemaに合致していないものが発見されたらErrorをthrowして終了
+- [ ] Categoryの更新処理を実装
+	- `categories.json`から読み込んだデータがすべてもれなく上記のZod Schemaに合致致していれば、prisma.category.upsertでDBにないものだけ挿入。upsertのwhereはnameの一致を確認。
+- [ ] Articleの更新処理を実装
+	- `categories.json`から読み込んだデータがすべてもれなく上記のZod Schemaに合致致していれば、prisma.article.upsertでDBにないものだけ挿入。upsertのwhereはidの一致を確認。tagsはconnectOrCreateを使用
+- [ ] `seed.ts`を実行する`tsx --env-file .env ...`の形式のコマンドを`package.json` > `scripts`に追加
+- [ ] 上記コマンドで`seed.ts`を実行
+    - エラーがあればエラーメッセージを分析して原因を報告。まだ解決はしない、ソースコードを編集しない。
+    - エラーがなければ、sqlite3 CLIで結果を確認するための一連のコマンドを提示、実行はしない。
 
 ## 5. Prismaクライアントの利用
 - [ ] アプリケーションコードからのPrismaクライアントのインポートと利用方法の検討
