@@ -1,6 +1,7 @@
 import styles from "./page.module.css";
 import path from "path";
 import { promises as fsPromises } from "fs";
+import { z } from "zod";
 
 interface Article {
   title: string;
@@ -11,10 +12,20 @@ interface Article {
   tags: string[];
 }
 
+const ArticleSchema = z.object({
+  title: z.string(),
+  article: z.string(),
+  category: z.string(),
+  date: z.string(),
+  views: z.number(),
+  tags: z.array(z.string()),
+}) satisfies z.ZodType<Article>;
+
 async function getSearchResult(query: string): Promise<Article[]> {
   const filePath = path.join(process.cwd(), "app/search/articles.json");
   const fileContents = await fsPromises.readFile(filePath, "utf8");
-  const allArticles: Article[] = JSON.parse(fileContents);
+  const parsedArticles = JSON.parse(fileContents);
+  const allArticles = ArticleSchema.array().parse(parsedArticles);
 
   if (!query) {
     return allArticles;
@@ -49,13 +60,26 @@ export default async function SearchResultsPage({
           {newsArticles.map((article, index) => (
             <div key={index} className={styles.articleCard}>
               <h2>{article.title}</h2>
-              <p><strong>カテゴリ:</strong> <span className={styles.categoryPill}>{article.category}</span></p>
-              <p><strong>日付:</strong> {article.date}</p>
-              <p>{article.article.substring(0, 150)}...</p> {/* Displaying a snippet */}
-              <p><strong>タグ:</strong> {article.tags.map((tag, tagIndex) => (
-                <span key={tagIndex} className={styles.tagPill}>{tag}</span>
-              ))}</p>
-              <p><strong>閲覧数:</strong> {article.views.toLocaleString()}</p>
+              <p>
+                <strong>カテゴリ:</strong>{" "}
+                <span className={styles.categoryPill}>{article.category}</span>
+              </p>
+              <p>
+                <strong>日付:</strong> {article.date}
+              </p>
+              <p>{article.article.substring(0, 150)}...</p>{" "}
+              {/* Displaying a snippet */}
+              <p>
+                <strong>タグ:</strong>{" "}
+                {article.tags.map((tag, tagIndex) => (
+                  <span key={tagIndex} className={styles.tagPill}>
+                    {tag}
+                  </span>
+                ))}
+              </p>
+              <p>
+                <strong>閲覧数:</strong> {article.views.toLocaleString()}
+              </p>
             </div>
           ))}
         </div>
