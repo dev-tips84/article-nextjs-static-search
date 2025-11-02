@@ -41,8 +41,8 @@ generator client {
 
 ## 4. シードスクリプトの作成
 `app/search/articles.json`のデータをデータベースに投入するためのシードスクリプトを作成します。
-- [ ] Node.jsでTypeScriptを実行するため`tsx`の導入
-- [ ] https://tsx.is/typescript#tsconfig-json にしたがってtsconfig.jsonを更新。以下の設定で既存のtsconfig.jsonにて未定義のものはコメントとともに追加、すでに設定済みのものは既存のtsconfig.jsonを優先
+- [x] Node.jsでTypeScriptを実行するため`tsx`の導入
+- [x] https://tsx.is/typescript#tsconfig-json にしたがってtsconfig.jsonを更新。以下の設定で既存のtsconfig.jsonにて未定義のものはコメントとともに追加、すでに設定済みのものは既存のtsconfig.jsonを優先
 ```
 {
 	"compilerOptions": {

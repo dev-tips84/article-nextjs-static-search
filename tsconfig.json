@@ -7,6 +7,11 @@
     "strict": true,
     "noEmit": true,
     "esModuleInterop": true,
+    // tsx recommendation: Treat files as modules even if it doesn't use import/export
+    // https://tsx.is/typescript#tsconfig-json
+    "moduleDetection": "force",
+    // Different from tsx recommendation, but prioritise Next.js default
+    // https://tsx.is/typescript#tsconfig-json
     "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
