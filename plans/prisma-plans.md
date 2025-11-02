@@ -3,8 +3,16 @@
 ## 1. Prisma初期設定
 - [ ] Prisma CLIのインストール
 - [ ] `prisma init` コマンドの実行
-- [ ] データベースプロバイダの設定（例: PostgreSQL, SQLite）
-- [ ] `.env` ファイルでのデータベース接続URLの設定
+  - schema.prismaの設定はhttps://www.prisma.io/docs/orm/prisma-client/setup-and-configuration/no-rust-engine に従ってNo Rust engineを使う
+```
+generator client {
+  provider        = "prisma-client"
+  output          = "../generated/prisma"
+  engineType      = "client" // enable Prisma ORM without Rust
+}
+```
+- [ ] データベースプロバイダの設定（SQLite）
+- [ ] `.env` ファイルでのデータベース接続URLの設定、.gitignoreに.envを追加
 
 ## 2. スキーマ定義（`schema.prisma`）
 `app/search/articles.json`のデータ構造に基づき、以下のモデルを定義します。
@@ -33,11 +41,13 @@
 
 ## 4. シードスクリプトの作成
 `app/search/articles.json`のデータをデータベースに投入するためのシードスクリプトを作成します。
-- [ ] `prisma/seed.ts` ファイルの作成
+- [ ] Node.jsでTypeScriptを実行するため`tsx`の導入
+- [ ] https://tsx.is/typescript#tsconfig-json にしたがって
+- [ ] `prisma/seed/seed.ts` ファイルの作成
+- [ ] `articles.json` を`prisma/seed`ディレクトリに移動
 - [ ] `articles.json` を読み込む処理の実装
 - [ ] 読み込んだデータを`Article`, `Category`, `Tag`モデルに変換し、データベースに保存する処理の実装
     - 既存のカテゴリやタグがあれば再利用し、なければ新規作成するロジック
-- [ ] `package.json`にシードスクリプト実行コマンドを追加
 
 ## 5. Prismaクライアントの利用
 - [ ] アプリケーションコードからのPrismaクライアントのインポートと利用方法の検討
