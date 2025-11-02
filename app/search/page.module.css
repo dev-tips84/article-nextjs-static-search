@@ -58,3 +58,94 @@
   margin-right: 5px;
   margin-bottom: 5px;
 }
+
+/* Search Form Styles */
+.searchForm {
+  margin-bottom: 30px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.searchInputContainer {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.searchInput {
+  flex-grow: 1;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
+}
+
+.searchButton {
+  padding: 10px 20px;
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.searchButton:hover {
+  background-color: #005bb5;
+}
+
+.detailsContainer {
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.detailsSummary {
+  font-weight: bold;
+  cursor: pointer;
+  padding: 5px 0;
+  list-style: none; /* Remove default arrow */
+}
+
+.detailsSummary::-webkit-details-marker {
+  display: none; /* Remove default arrow for webkit browsers */
+}
+
+.detailsSummary::before {
+  content: '▶'; /* Custom arrow */
+  display: inline-block;
+  margin-right: 8px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.detailsContainer[open] .detailsSummary::before {
+  transform: rotate(90deg);
+}
+
+.categoryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+  margin-top: 10px;
+}
+
+.categoryLabel {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  font-size: 0.95em;
+}
+
+.categoryCheckbox {
+  /* Basic styling, can be customized further */
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
