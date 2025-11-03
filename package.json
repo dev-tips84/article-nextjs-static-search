@@ -12,7 +12,10 @@
   "dependencies": {
     "@prisma/adapter-better-sqlite3": "^6.18.0",
     "@prisma/client": "^6.18.0",
+    "better-sqlite3": "^11.10.0",
+    "bindings": "^1.5.0",
     "dotenv": "^17.2.3",
+    "file-uri-to-path": "^2.0.0",
     "next": "16.0.1",
     "react": "19.2.0",
     "react-dom": "19.2.0",
