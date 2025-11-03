@@ -1,43 +1,18 @@
 import styles from "./page.module.css";
-import path from "path";
-import { promises as fsPromises } from "fs";
-import { z } from "zod";
+import { prisma } from "../../prisma/lib";
 
-interface Article {
-  title: string;
-  article: string;
-  category: string;
-  date: string;
-  views: number;
-  tags: string[];
+async function getAllCategories() {
+  const allCategories = await prisma.category.findMany();
+  return allCategories.map((x) => x.name);
 }
 
-const ArticleSchema = z.object({
-  title: z.string(),
-  article: z.string(),
-  category: z.string(),
-  date: z.string(),
-  views: z.number(),
-  tags: z.array(z.string()),
-}) satisfies z.ZodType<Article>;
-
-async function getAllCategories(): Promise<string[]> {
-  const filePath = path.join(process.cwd(), "app/search/articles.json");
-  const fileContents = await fsPromises.readFile(filePath, "utf8");
-  const allArticles: Article[] = JSON.parse(fileContents);
-  const categories = new Set<string>();
-  allArticles.forEach((article) => categories.add(article.category));
-  return Array.from(categories).sort();
-}
-
-async function getSearchResult(
-  query: string,
-  selectedCategories: string[]
-): Promise<Article[]> {
-  const filePath = path.join(process.cwd(), "app/search/articles.json");
-  const fileContents = await fsPromises.readFile(filePath, "utf8");
-  const parsedArticles = JSON.parse(fileContents);
-  const allArticles = ArticleSchema.array().parse(parsedArticles);
+async function getSearchResult(query: string, selectedCategories: string[]) {
+  const allArticles = await prisma.article.findMany({
+    include: {
+      category: true,
+      tags: true,
+    },
+  });
 
   let filteredArticles = allArticles;
 
@@ -52,7 +27,7 @@ async function getSearchResult(
 
   if (selectedCategories.length > 0) {
     filteredArticles = filteredArticles.filter((article) =>
-      selectedCategories.includes(article.category)
+      selectedCategories.includes(article.category.name)
     );
   }
 
@@ -126,18 +101,20 @@ export default async function SearchResultsPage({
               <h2>{article.title}</h2>
               <p>
                 <strong>カテゴリ:</strong>{" "}
-                <span className={styles.categoryPill}>{article.category}</span>
+                <span className={styles.categoryPill}>
+                  {article.category.name}
+                </span>
               </p>
               <p>
-                <strong>日付:</strong> {article.date}
+                <strong>日付:</strong> {article.date.toDateString()}
               </p>
               <p>{article.article.substring(0, 150)}...</p>{" "}
               {/* Displaying a snippet */}
               <p>
                 <strong>タグ:</strong>{" "}
-                {article.tags.map((tag, tagIndex) => (
-                  <span key={tagIndex} className={styles.tagPill}>
-                    {tag}
+                {article.tags.map((t) => (
+                  <span key={t.name} className={styles.tagPill}>
+                    {t.name}
                   </span>
                 ))}
               </p>
